@@ -1,4 +1,5 @@
 from core.spatial import world_to_screen
+from constants import COLORS
 
 def draw_line(game: object, point1: tuple, point2: tuple):
     dx = (point1[0] - point2[0])
@@ -12,7 +13,7 @@ def draw_line(game: object, point1: tuple, point2: tuple):
         new_y = point2[1]
 
         for _ in range(step):
-            game.world[int(new_x), int(new_y)] = "O"
+            game.world[int(new_x), int(new_y)] = "1"
             new_x += dx
             new_y += dy
 
@@ -39,16 +40,17 @@ def write(game):
 
     ls = [
         [
-            f"{game.world.get((x, y), " ")}"
+            f"{game.world.get((x, y), "0")}"
             for x in range(game.size.columns)
         ]
         for y in range(game.size.lines)
     ]
 
     output = ""
-    for y in ls:
+    for i, y in enumerate(ls):
         for x in y:
             output += x
-        output += "\n"
+        if i != len(ls)-1:
+            output += "\n"
 
     return output

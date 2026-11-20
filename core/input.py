@@ -10,6 +10,9 @@ def handle_input(game):
     if kb.is_pressed("esc"):
         game.running = False
 
+    if kb.is_pressed("u"):
+        game.locked = not game.locked
+
     if kb.is_pressed("w"):
         game.camera.z += cos_y * CAMERA_MOVEMENT_SPEED
         game.camera.x += sin_y * CAMERA_MOVEMENT_SPEED
@@ -28,12 +31,13 @@ def handle_input(game):
     if kb.is_pressed("spacebar"):
         game.camera.y += CAMERA_MOVEMENT_SPEED
 
-    mouse_x, mouse_y = mouse.get_position()
-    yaw_movement, pitch_movement = mouse_x - 500, mouse_y - 500
-    mouse.move(500, 500)
+    if game.locked:
+        mouse_x, mouse_y = mouse.get_position()
+        yaw_movement, pitch_movement = mouse_x - 500, mouse_y - 500
+        mouse.move(500, 500)
 
-    game.camera.pitch -= pitch_movement * MOUSE_SENSITIVITY
-    game.camera.yaw += yaw_movement * MOUSE_SENSITIVITY
+        game.camera.pitch -= pitch_movement * MOUSE_SENSITIVITY
+        game.camera.yaw += yaw_movement * MOUSE_SENSITIVITY
 
-    game.camera.pitch = max(-90, min(90, game.camera.pitch))
-    game.camera.yaw %= 360
+        game.camera.pitch = max(-90, min(90, game.camera.pitch))
+        game.camera.yaw %= 360
