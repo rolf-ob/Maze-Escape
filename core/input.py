@@ -1,5 +1,5 @@
-import keyboard as k
+import keyboard as kb
 
 def handle_input(game):
-    if k.is_pressed("esc"):
+    if kb.is_pressed("esc"):
         game.running = False
